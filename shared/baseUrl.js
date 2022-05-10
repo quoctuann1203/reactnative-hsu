@@ -1,0 +1,1 @@
+export const baseUrl = 'http://food-qtuann.herokuapp.com/';

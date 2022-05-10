@@ -10,6 +10,8 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import Home from "./HomeComponent";
+import { connect } from "react-redux";
+import { fetchLeaders } from "../redux/ActionCreators";
 function HomeNavigatorScreen() {
   const HomeNavigator = createStackNavigator();
   return (
@@ -236,6 +238,12 @@ function MainNavigatorScreen() {
   );
 }
 
+// redux
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchLeaders: () => dispatch(fetchLeaders()),
+});
+
 class Main extends Component {
   render() {
     return (
@@ -244,5 +252,10 @@ class Main extends Component {
       </NavigationContainer>
     );
   }
+  componentDidMount() {
+    // redux
+    this.props.fetchLeaders();
+  }
 }
-export default Main;
+
+export default connect(null, mapDispatchToProps)(Main);

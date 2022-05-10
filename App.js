@@ -1,30 +1,25 @@
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
+// import React, { Component } from 'react';
+// import Main from './component/MainComponent';
 
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
+// class App extends Component {
+//   render() {
+//     return (<Main />);
+//   }
 // }
+// export default App;
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
-import React, { Component } from 'react';
-import Main from './component/MainComponent';
+// redux
+import { Provider } from "react-redux";
+import { ConfigureStore } from "./redux/ConfigureStore";
+const store = ConfigureStore();
 
 class App extends Component {
   render() {
-    return (<Main />);
+    return (
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    );
   }
 }
 export default App;
