@@ -3,6 +3,10 @@ import { View, Text, Linking } from "react-native";
 import { Icon, Image } from "react-native-elements";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Menu from "./MenuComponent";
+import Dishdetail from "./DishdetailComponent";
+import Contact from "./ContactComponent";
+import About from "./AboutComponent";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -11,7 +15,14 @@ import {
 } from "@react-navigation/drawer";
 import Home from "./HomeComponent";
 import { connect } from "react-redux";
-import { fetchLeaders } from "../redux/ActionCreators";
+import {
+  fetchLeaders,
+  fetchDishes,
+  fetchComments,
+  fetchPromos,
+} from "../redux/ActionCreators";
+import { baseUrl } from "../shared/baseUrl";
+
 function HomeNavigatorScreen() {
   const HomeNavigator = createStackNavigator();
   return (
@@ -102,11 +113,6 @@ function AboutNavigatorScreen() {
   );
 }
 
-import Menu from "./MenuComponent";
-import Dishdetail from "./DishdetailComponent";
-import Contact from "./ContactComponent";
-import About from "./AboutComponent";
-
 function MenuNavigatorScreen() {
   const MenuNavigator = createStackNavigator();
   return (
@@ -155,7 +161,7 @@ function CustomDrawerContent(props) {
       >
         <View style={{ flex: 1 }}>
           <Image
-            source={require("./images/logo.png")}
+            source={{ uri: baseUrl + "images/logo.png" }}
             style={{ margin: 10, width: 80, height: 60 }}
           />
         </View>
@@ -242,6 +248,9 @@ function MainNavigatorScreen() {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchLeaders: () => dispatch(fetchLeaders()),
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
 });
 
 class Main extends Component {
@@ -255,7 +264,11 @@ class Main extends Component {
   componentDidMount() {
     // redux
     this.props.fetchLeaders();
+    this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
   }
 }
 
 export default connect(null, mapDispatchToProps)(Main);
+// export default Main;

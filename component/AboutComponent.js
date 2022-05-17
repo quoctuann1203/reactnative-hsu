@@ -46,13 +46,13 @@ class RenderLeadership extends Component {
   renderLeaderItem(item, index) {
     return (
       <ListItem key={index}>
-        <Avatar rounded source={require("./images/alberto.png")} />
+        {/* <Avatar rounded source={require("./images/alberto.png")} /> */}
+        <Avatar rounded source={{ uri: baseUrl + item.image }} />
         <ListItem.Content>
           <ListItem.Title style={{ fontWeight: "bold" }}>
             {item.name}
           </ListItem.Title>
           <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-          <Avatar rounded source={{ uri: baseUrl + item.image }} />
         </ListItem.Content>
       </ListItem>
     );
@@ -70,9 +70,9 @@ const mapStateToProps = (state) => {
 class About extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   leaders: LEADERS,
-    // };
+    this.state = {
+      leaders: LEADERS,
+    };
   }
   render() {
     return (
@@ -85,3 +85,4 @@ class About extends Component {
   }
 }
 export default connect(mapStateToProps)(About);
+// export default About;
