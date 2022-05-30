@@ -22,6 +22,7 @@ import {
   fetchPromos,
 } from "../redux/ActionCreators";
 import { baseUrl } from "../shared/baseUrl";
+import Reservation from "./ReservationComponent";
 
 function HomeNavigatorScreen() {
   const HomeNavigator = createStackNavigator();
@@ -148,6 +149,36 @@ function MenuNavigatorScreen() {
   );
 }
 
+function ReservationNavigatorScreen() {
+  const ReservationNavigator = createStackNavigator();
+  return (
+    <ReservationNavigator.Navigator
+      initialRouteName="Reservation"
+      screenOptions={{
+        headerStyle: { backgroundColor: "#7cc" },
+        headerTintColor: "#fff",
+        headerTitleStyle: { color: "#fff" },
+      }}
+    >
+      <ReservationNavigator.Screen
+        name="Reservation"
+        component={Reservation}
+        options={({ navigation }) => ({
+          headerTitle: "Reserve Table",
+          headerLeft: () => (
+            <Icon
+              name="menu"
+              size={36}
+              color="#fff"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </ReservationNavigator.Navigator>
+  );
+}
+
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -234,6 +265,22 @@ function MainNavigatorScreen() {
           drawerIcon: ({ focused, size }) => (
             <Icon
               name="contacts"
+              size={size}
+              color={focused ? "#7cc" : "#ccc"}
+            />
+          ),
+        }}
+      />
+      <MainNavigator.Screen
+        name="ReservationScreen"
+        component={ReservationNavigatorScreen}
+        options={{
+          title: "Reserve Table",
+          headerShown: false,
+          drawerIcon: ({ focused, size }) => (
+            <Icon
+              name="cutlery"
+              type="font-awesome"
               size={size}
               color={focused ? "#7cc" : "#ccc"}
             />

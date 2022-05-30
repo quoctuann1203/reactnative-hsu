@@ -5,7 +5,8 @@ import { Card, Image, Icon } from "react-native-elements";
 // import { COMMENTS } from "../shared/comments";
 import { ScrollView } from "react-native-virtualized-view";
 import { baseUrl } from "../shared/baseUrl";
-
+import { connect } from "react-redux";
+import { postFavorite } from "../redux/ActionCreators";
 class RenderComments extends Component {
   render() {
     const comments = this.props.comments;
@@ -74,13 +75,17 @@ class RenderDish extends Component {
 }
 
 // redux
-import { connect } from "react-redux";
 const mapStateToProps = (state) => {
   return {
     dishes: state.dishes,
     comments: state.comments,
+    favorites: state.favorites,
   };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+});
 
 class Dishdetail extends Component {
   constructor(props) {
@@ -88,12 +93,13 @@ class Dishdetail extends Component {
     this.state = {
       // dishes: DISHES,
       // comments: COMMENTS,
-      favorites: [],
+      // favorites: [],
     };
   }
   render() {
     const dishId = parseInt(this.props.route.params.dishId);
-    const favorite = this.state.favorites.some((el) => el === dishId);
+    const favorite = this.props.favorites.some((el) => el === dishId);
+    // const favorite = this.state.favorites.some((el) => el === dishId);
     // const dish = this.state.dishes[dishId];
     // const comments = this.state.comments.filter((cmt) => cmt.dishId === dishId);
     const dish = this.props.dishes.dishes[dishId];
@@ -113,7 +119,8 @@ class Dishdetail extends Component {
     );
   }
   markFavorite(dishId) {
-    this.setState({ favorites: this.state.favorites.concat(dishId) });
+    // this.setState({ favorites: this.state.favorites.concat(dishId) });
+    this.props.postFavorite(dishId);
   }
 }
-export default connect(mapStateToProps)(Dishdetail);
+export default connect(mapStateToProps, mapDispatchToProps)(Dishdetail);
