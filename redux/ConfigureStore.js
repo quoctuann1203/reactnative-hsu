@@ -10,7 +10,7 @@ import { favorites } from "./favorites";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({ leaders, dishes, comments, promotions, favorites }),
-    applyMiddleware(thunk, logger)
+    applyMiddleware(thunk)
   );
   return store;
 };
